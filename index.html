@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Price Predictor</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #fff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffffdd;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 60%;
+            max-width: 800px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            flex: 0 0 48%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            flex: 0 0 100%;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #004d40;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 30px;
+            color: #d32f2f;
+        }
+
+        @media (max-width: 600px) {
+            .form-group {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><b>✈️ FLIGHT PRICE PREDICTION ✈️</b></h2>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label>Airline</label>
+                <input type="text" name="Airline" placeholder="e.g. IndiGo" value="{{ request.form.get('Airline', '') }}">
+            </div>
+
+            <div class="form-group">
+                <label>Source</label>
+                <input type="text" name="Source" placeholder="e.g. Delhi" value="{{ request.form.get('Source', '') }}">
+            </div>
+
+            <div class="form-group">
+                <label>Destination</label>
+                <input type="text" name="Destination" placeholder="e.g. Cochin" value="{{ request.form.get('Destination', '') }}">
+            </div>
+
+            <div class="form-group">
+                <label>Total Stops</label>
+                <input type="number" name="Total_Stops" placeholder="e.g. 1" value="{{ request.form.get('Total_Stops', '') }}">
+            </div>
+
+            <div class="form-group">
+                <label>Additional Info</label>
+                <input type="text" name="Additional_Info" placeholder="e.g. No Info" value="{{ request.form.get('Additional_Info', '') }}">
+            </div>
+
+            <div class="form-group">
+                <label>Journey Day</label>
+                <input type="number" name="Journey_day" placeholder="e.g. 12" value="{{ request.form.get('Journey_day', '') }}">
+            </div>
+
+            <div class="form-group full-width">
+                <label>Journey Month</label>
+                <input type="number" name="Journey_month" placeholder="e.g. 5" value="{{ request.form.get('Journey_month', '') }}">
+            </div>
+
+            <div class="form-group full-width">
+                <input type="submit" value="Predict">
+            </div>
+        </form>
+
+        {% if prediction_text %}
+            <h3>{{ prediction_text }}</h3>
+        {% endif %}
+    </div>
+</body>
+</html>
